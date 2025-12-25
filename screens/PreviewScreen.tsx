@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../CartContext';
 import Layout from '../components/Layout';
@@ -20,9 +20,19 @@ const PreviewScreen: React.FC = () => {
     return paymentNames[method] || method;
   };
 
+  const generateOrderNumber = (): string => {
+    const now = new Date();
+    const dateStr = now.toISOString().slice(0, 10).replace(/-/g, '');
+    const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+    return `PED-${dateStr}-${random}`;
+  };
+
+  const [orderNumber] = useState(() => generateOrderNumber());
+
   const handleSend = () => {
     const itemsText = cart.map(item => `• ${item.quantity}x ${item.name}`).join('\n');
     const message = `*¡Hola!* 👋 Quisiera realizar un pedido:\n\n` +
+      `*🆔 NÚMERO DE PEDIDO:* ${orderNumber}\n\n` +
       `*🛒 PRODUCTOS:*\n${itemsText}\n\n` +
       `*📍 DIRECCIÓN:* ${address}\n` +
       (notes ? `*📝 NOTA:* ${notes}\n` : '') +
@@ -66,6 +76,8 @@ const PreviewScreen: React.FC = () => {
           <div className="relative bg-[#dcf8c6] dark:bg-whatsapp/20 shadow-sm rounded-2xl rounded-tr-sm p-4 text-slate-800 dark:text-white max-w-[85%] border-b border-black/5">
             <div className="text-[14px] leading-relaxed font-medium whitespace-pre-wrap">
               <span className="font-bold">¡Hola!</span> 👋 Quisiera realizar un pedido:<br/><br/>
+              <span className="font-bold text-[11px] text-green-700 dark:text-whatsapp uppercase tracking-wider">🆔 NÚMERO DE PEDIDO:</span><br/>
+              <span className="pl-2 font-black">{orderNumber}</span><br/><br/>
               <span className="font-bold text-[11px] text-green-700 dark:text-whatsapp uppercase tracking-wider">🛒 PRODUCTOS:</span><br/>
               {cart.map(item => (
                 <div key={item.id} className="pl-2">
@@ -123,7 +135,7 @@ const PreviewScreen: React.FC = () => {
           
           <button 
             onClick={() => navigate('/summary')}
-            className="w-full py-3 text-slate-400 text-sm font-bold hover:text-slate-900 dark:hover:text-white transition-colors"
+            className="w-full py-3 text-red-600 dark:text-red-500 text-sm font-bold hover:text-red-700 dark:hover:text-red-400 transition-colors"
           >
             Atrás, quiero cambiar algo
           </button>
