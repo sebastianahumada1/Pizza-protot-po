@@ -127,20 +127,48 @@ const SummaryScreen: React.FC = () => {
                 <span className="material-symbols-outlined text-primary text-[18px]">wallet</span>
                 Método de Pago
               </label>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-3 gap-3">
                 <button 
                   onClick={() => setPaymentMethod('cash')}
-                  className={`flex flex-col items-center gap-2 p-4 rounded-2xl border-2 transition-all ${paymentMethod === 'cash' ? 'border-primary bg-primary/5 text-primary' : 'border-gray-100 dark:border-gray-800 grayscale opacity-60'}`}
+                  className={`flex flex-col items-center gap-2 p-3 rounded-2xl border-2 transition-all ${paymentMethod === 'cash' ? 'border-primary bg-primary/5 text-primary' : 'border-gray-100 dark:border-gray-800 grayscale opacity-60'}`}
                 >
-                  <span className="material-symbols-outlined text-3xl">payments</span>
-                  <span className="text-xs font-black">EFECTIVO</span>
+                  <span className="material-symbols-outlined text-2xl">payments</span>
+                  <span className="text-[10px] font-black text-center leading-tight">EFECTIVO</span>
                 </button>
                 <button 
                   onClick={() => setPaymentMethod('card')}
-                  className={`flex flex-col items-center gap-2 p-4 rounded-2xl border-2 transition-all ${paymentMethod === 'card' ? 'border-primary bg-primary/5 text-primary' : 'border-gray-100 dark:border-gray-800 grayscale opacity-60'}`}
+                  className={`flex flex-col items-center gap-2 p-3 rounded-2xl border-2 transition-all ${paymentMethod === 'card' ? 'border-primary bg-primary/5 text-primary' : 'border-gray-100 dark:border-gray-800 grayscale opacity-60'}`}
                 >
-                  <span className="material-symbols-outlined text-3xl">credit_card</span>
-                  <span className="text-xs font-black">TARJETA</span>
+                  <span className="material-symbols-outlined text-2xl">credit_card</span>
+                  <span className="text-[10px] font-black text-center leading-tight">TARJETA</span>
+                </button>
+                <button 
+                  onClick={() => setPaymentMethod('binance')}
+                  className={`flex flex-col items-center gap-2 p-3 rounded-2xl border-2 transition-all ${paymentMethod === 'binance' ? 'border-primary bg-primary/5 text-primary' : 'border-gray-100 dark:border-gray-800 grayscale opacity-60'}`}
+                >
+                  <span className="material-symbols-outlined text-2xl">currency_bitcoin</span>
+                  <span className="text-[10px] font-black text-center leading-tight">BINANCE</span>
+                </button>
+                <button 
+                  onClick={() => setPaymentMethod('pago_movil')}
+                  className={`flex flex-col items-center gap-2 p-3 rounded-2xl border-2 transition-all ${paymentMethod === 'pago_movil' ? 'border-primary bg-primary/5 text-primary' : 'border-gray-100 dark:border-gray-800 grayscale opacity-60'}`}
+                >
+                  <span className="material-symbols-outlined text-2xl">phone_android</span>
+                  <span className="text-[10px] font-black text-center leading-tight">PAGO MÓVIL</span>
+                </button>
+                <button 
+                  onClick={() => setPaymentMethod('transferencia')}
+                  className={`flex flex-col items-center gap-2 p-3 rounded-2xl border-2 transition-all ${paymentMethod === 'transferencia' ? 'border-primary bg-primary/5 text-primary' : 'border-gray-100 dark:border-gray-800 grayscale opacity-60'}`}
+                >
+                  <span className="material-symbols-outlined text-2xl">account_balance</span>
+                  <span className="text-[10px] font-black text-center leading-tight">TRANSFERENCIA</span>
+                </button>
+                <button 
+                  onClick={() => setPaymentMethod('zelle')}
+                  className={`flex flex-col items-center gap-2 p-3 rounded-2xl border-2 transition-all ${paymentMethod === 'zelle' ? 'border-primary bg-primary/5 text-primary' : 'border-gray-100 dark:border-gray-800 grayscale opacity-60'}`}
+                >
+                  <span className="material-symbols-outlined text-2xl">send_money</span>
+                  <span className="text-[10px] font-black text-center leading-tight">ZELLE</span>
                 </button>
               </div>
             </div>

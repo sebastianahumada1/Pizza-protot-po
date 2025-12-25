@@ -8,13 +8,25 @@ const PreviewScreen: React.FC = () => {
   const navigate = useNavigate();
   const { cart, total, address, notes, paymentMethod } = useCart();
 
+  const getPaymentMethodName = (method: string): string => {
+    const paymentNames: Record<string, string> = {
+      'cash': 'Efectivo',
+      'card': 'Tarjeta (Contra entrega)',
+      'binance': 'Binance',
+      'pago_movil': 'Pago Móvil',
+      'transferencia': 'Transferencia Bancaria',
+      'zelle': 'Zelle'
+    };
+    return paymentNames[method] || method;
+  };
+
   const handleSend = () => {
     const itemsText = cart.map(item => `• ${item.quantity}x ${item.name}`).join('\n');
     const message = `*¡Hola!* 👋 Quisiera realizar un pedido:\n\n` +
       `*🛒 PRODUCTOS:*\n${itemsText}\n\n` +
       `*📍 DIRECCIÓN:* ${address}\n` +
       (notes ? `*📝 NOTA:* ${notes}\n` : '') +
-      `*💵 PAGO:* ${paymentMethod === 'cash' ? 'Efectivo' : 'Tarjeta (Contra entrega)'}\n\n` +
+      `*💵 PAGO:* ${getPaymentMethodName(paymentMethod)}\n\n` +
       `*💰 TOTAL:* $${total.toFixed(2)}\n\n` +
       `_¿Podrían confirmarme el tiempo estimado? Gracias!_`;
     
@@ -72,7 +84,7 @@ const PreviewScreen: React.FC = () => {
               )}
               
               <span className="font-bold text-[11px] text-green-700 dark:text-whatsapp uppercase tracking-wider">💵 PAGO:</span><br/>
-              <span className="pl-2">{paymentMethod === 'cash' ? 'Efectivo' : 'Tarjeta'}</span><br/><br/>
+              <span className="pl-2">{getPaymentMethodName(paymentMethod)}</span><br/><br/>
               
               <div className="bg-black/5 dark:bg-white/5 p-3 rounded-xl border border-black/5">
                 <span className="font-black text-lg">💰 TOTAL: ${total.toFixed(2)}</span>

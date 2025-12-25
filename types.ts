@@ -14,7 +14,7 @@ export interface CartItem extends Product {
   options?: string[];
 }
 
-export type PaymentMethod = 'cash' | 'card';
+export type PaymentMethod = 'cash' | 'card' | 'binance' | 'pago_movil' | 'transferencia' | 'zelle';
 export type DeliveryMethod = 'delivery' | 'pickup';
 
 export interface OrderState {
