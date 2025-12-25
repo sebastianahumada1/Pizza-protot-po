@@ -1,6 +1,6 @@
 
 import React, { createContext, useContext, useState, ReactNode, useMemo } from 'react';
-import { CartItem, Product, PaymentMethod } from './types';
+import { CartItem, Product, PaymentMethod, DeliveryMethod } from './types';
 
 interface CartContextType {
   cart: CartItem[];
@@ -17,6 +17,8 @@ interface CartContextType {
   setPaymentMethod: (method: PaymentMethod) => void;
   address: string;
   setAddress: (address: string) => void;
+  deliveryMethod: DeliveryMethod;
+  setDeliveryMethod: (method: DeliveryMethod) => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -25,8 +27,12 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [cart, setCart] = useState<CartItem[]>([]);
   const [notes, setNotes] = useState('');
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('cash');
+  const [deliveryMethod, setDeliveryMethod] = useState<DeliveryMethod>('delivery');
   const [address, setAddress] = useState('Av. Siempre Viva 123, Springfield');
-  const deliveryFee = 2.00;
+  
+  const deliveryFee = useMemo(() => {
+    return deliveryMethod === 'delivery' ? 2.00 : 0.00;
+  }, [deliveryMethod]);
 
   const addToCart = (product: Product) => {
     setCart(prev => {
@@ -76,7 +82,9 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     paymentMethod,
     setPaymentMethod,
     address,
-    setAddress
+    setAddress,
+    deliveryMethod,
+    setDeliveryMethod
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

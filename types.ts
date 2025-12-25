@@ -15,6 +15,7 @@ export interface CartItem extends Product {
 }
 
 export type PaymentMethod = 'cash' | 'card';
+export type DeliveryMethod = 'delivery' | 'pickup';
 
 export interface OrderState {
   items: CartItem[];
@@ -22,4 +23,5 @@ export interface OrderState {
   paymentMethod: PaymentMethod;
   address: string;
   deliveryFee: number;
+  deliveryMethod: DeliveryMethod;
 }

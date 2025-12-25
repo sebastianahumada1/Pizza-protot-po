@@ -7,7 +7,7 @@ import Layout from '../components/Layout';
 
 const ConfirmationScreen: React.FC = () => {
   const navigate = useNavigate();
-  const { cart, total, subtotal, deliveryFee, address } = useCart();
+  const { cart, total, subtotal, deliveryFee, address, deliveryMethod, setDeliveryMethod } = useCart();
 
   return (
     <Layout>
@@ -40,7 +40,30 @@ const ConfirmationScreen: React.FC = () => {
           <p className="text-gray-500 dark:text-gray-400 text-base font-medium leading-normal">Revisa tu pedido antes de enviarlo a WhatsApp.</p>
         </div>
 
-        <div className="mt-8 mx-4 bg-surface-light dark:bg-surface-dark rounded-xl p-1 shadow-sm border border-gray-100 dark:border-gray-800">
+        <div className="mt-8 mx-4 bg-surface-light dark:bg-surface-dark rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-800">
+          <label className="text-xs font-black text-gray-400 uppercase tracking-widest flex items-center gap-2 mb-3">
+            <span className="material-symbols-outlined text-primary text-[18px]">local_shipping</span>
+            Método de Entrega
+          </label>
+          <div className="grid grid-cols-2 gap-3">
+            <button 
+              onClick={() => setDeliveryMethod('delivery')}
+              className={`flex flex-col items-center gap-2 p-4 rounded-2xl border-2 transition-all ${deliveryMethod === 'delivery' ? 'border-primary bg-primary/5 text-primary' : 'border-gray-100 dark:border-gray-800 grayscale opacity-60'}`}
+            >
+              <span className="material-symbols-outlined text-3xl">delivery_dining</span>
+              <span className="text-xs font-black">DELIVERY</span>
+            </button>
+            <button 
+              onClick={() => setDeliveryMethod('pickup')}
+              className={`flex flex-col items-center gap-2 p-4 rounded-2xl border-2 transition-all ${deliveryMethod === 'pickup' ? 'border-primary bg-primary/5 text-primary' : 'border-gray-100 dark:border-gray-800 grayscale opacity-60'}`}
+            >
+              <span className="material-symbols-outlined text-3xl">store</span>
+              <span className="text-xs font-black">RETIRAR</span>
+            </button>
+          </div>
+        </div>
+
+        <div className="mt-6 mx-4 bg-surface-light dark:bg-surface-dark rounded-xl p-1 shadow-sm border border-gray-100 dark:border-gray-800">
           <div className="flex items-center gap-4 px-3 py-3 justify-between border-b border-gray-100 dark:border-gray-800">
             <div className="flex items-center gap-4">
               <div className="text-primary flex items-center justify-center rounded-full bg-primary/10 shrink-0 size-10">
@@ -55,18 +78,33 @@ const ConfirmationScreen: React.FC = () => {
               A tiempo
             </div>
           </div>
-          <div className="flex items-center gap-4 px-3 py-3 justify-between">
-            <div className="flex items-center gap-4">
-              <div className="text-primary flex items-center justify-center rounded-full bg-primary/10 shrink-0 size-10">
-                <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>location_on</span>
+          {deliveryMethod === 'delivery' && (
+            <div className="flex items-center gap-4 px-3 py-3 justify-between">
+              <div className="flex items-center gap-4">
+                <div className="text-primary flex items-center justify-center rounded-full bg-primary/10 shrink-0 size-10">
+                  <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>location_on</span>
+                </div>
+                <div className="flex flex-col justify-center">
+                  <p className="text-gray-500 dark:text-gray-400 text-xs font-medium uppercase tracking-wider">Entregar en</p>
+                  <p className="text-[#1b0e0e] dark:text-white text-base font-bold leading-normal line-clamp-1">{address}</p>
+                </div>
               </div>
-              <div className="flex flex-col justify-center">
-                <p className="text-gray-500 dark:text-gray-400 text-xs font-medium uppercase tracking-wider">Entregar en</p>
-                <p className="text-[#1b0e0e] dark:text-white text-base font-bold leading-normal line-clamp-1">{address}</p>
+              <button className="text-primary text-sm font-semibold">Editar</button>
+            </div>
+          )}
+          {deliveryMethod === 'pickup' && (
+            <div className="flex items-center gap-4 px-3 py-3 justify-between">
+              <div className="flex items-center gap-4">
+                <div className="text-primary flex items-center justify-center rounded-full bg-primary/10 shrink-0 size-10">
+                  <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>store</span>
+                </div>
+                <div className="flex flex-col justify-center">
+                  <p className="text-gray-500 dark:text-gray-400 text-xs font-medium uppercase tracking-wider">Retirar en</p>
+                  <p className="text-[#1b0e0e] dark:text-white text-base font-bold leading-normal">Tienda</p>
+                </div>
               </div>
             </div>
-            <button className="text-primary text-sm font-semibold">Editar</button>
-          </div>
+          )}
         </div>
 
         <div className="mt-6 mx-4">
@@ -92,10 +130,12 @@ const ConfirmationScreen: React.FC = () => {
                 <span className="text-gray-500 dark:text-gray-400">Subtotal</span>
                 <span className="text-[#1b0e0e] dark:text-white font-medium">${subtotal.toFixed(2)}</span>
               </div>
-              <div className="flex justify-between items-center text-sm">
-                <span className="text-gray-500 dark:text-gray-400">Envío</span>
-                <span className="text-[#1b0e0e] dark:text-white font-medium">${deliveryFee.toFixed(2)}</span>
-              </div>
+              {deliveryMethod === 'delivery' && (
+                <div className="flex justify-between items-center text-sm">
+                  <span className="text-gray-500 dark:text-gray-400">Envío</span>
+                  <span className="text-[#1b0e0e] dark:text-white font-medium">${deliveryFee.toFixed(2)}</span>
+                </div>
+              )}
               <div className="flex justify-between items-center pt-2 mt-2">
                 <span className="text-[#1b0e0e] dark:text-white text-lg font-bold">Total</span>
                 <span className="text-primary text-2xl font-extrabold tracking-tight">${total.toFixed(2)}</span>
