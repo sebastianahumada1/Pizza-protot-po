@@ -7,7 +7,7 @@ import Layout from '../components/Layout';
 
 const SummaryScreen: React.FC = () => {
   const navigate = useNavigate();
-  const { cart, total, subtotal, deliveryFee, addToCart, updateQuantity, notes, setNotes, paymentMethod, setPaymentMethod } = useCart();
+  const { cart, total, subtotal, deliveryFee, addToCart, updateQuantity, removeFromCart, notes, setNotes, paymentMethod, setPaymentMethod } = useCart();
 
   if (cart.length === 0) {
     return (
@@ -51,7 +51,7 @@ const SummaryScreen: React.FC = () => {
           </div>
           <div className="flex flex-col gap-4">
             {cart.map(item => (
-              <div key={item.id} className="bg-white dark:bg-surface-dark rounded-[2rem] p-4 shadow-sm border border-gray-100 dark:border-gray-800 flex items-center gap-4 group animate-fade-in-up">
+              <div key={item.id} className="bg-white dark:bg-surface-dark rounded-[2rem] p-4 shadow-sm border border-gray-100 dark:border-gray-800 flex items-center gap-4 group animate-fade-in-up relative">
                 <div className="size-20 rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800 shrink-0">
                   <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
                 </div>
@@ -79,6 +79,13 @@ const SummaryScreen: React.FC = () => {
                     </div>
                   </div>
                 </div>
+                <button
+                  onClick={() => removeFromCart(item.id)}
+                  className="absolute top-3 right-3 size-8 flex items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 hover:bg-red-200 dark:hover:bg-red-900/50 transition-all opacity-0 group-hover:opacity-100"
+                  title="Eliminar item"
+                >
+                  <span className="material-symbols-outlined text-lg" style={{ fontSize: '18px' }}>delete</span>
+                </button>
               </div>
             ))}
           </div>

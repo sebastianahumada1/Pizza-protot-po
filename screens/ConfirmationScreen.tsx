@@ -149,12 +149,15 @@ const ConfirmationScreen: React.FC = () => {
         <div className="absolute -top-12 left-0 right-0 h-12 bg-gradient-to-t from-background-light dark:from-background-dark to-transparent pointer-events-none"></div>
         <button 
           onClick={() => navigate('/preview')} 
-          className="w-full bg-primary hover:bg-red-600 text-white rounded-full py-4 px-6 flex items-center justify-center gap-3 shadow-lg shadow-red-500/30 transform active:scale-[0.98] transition-all duration-200"
+          className="w-full bg-whatsapp hover:bg-[#1abe5c] text-white rounded-full py-4 px-6 flex items-center justify-center gap-3 shadow-lg shadow-whatsapp/30 transform active:scale-[0.98] transition-all duration-200"
         >
           <span className="material-symbols-outlined" style={{ fontSize: '24px' }}>chat</span>
           <span className="text-lg font-bold">Continuar a WhatsApp</span>
         </button>
-        <button onClick={() => navigate('/summary')} className="w-full mt-3 py-2 text-gray-500 dark:text-gray-400 text-sm font-semibold hover:text-[#1b0e0e] dark:hover:text-white transition-colors">
+        <button 
+          onClick={() => navigate('/summary')} 
+          className="w-full mt-3 py-3 px-4 bg-red-600 dark:bg-red-500 text-white text-sm font-bold rounded-full hover:bg-red-700 dark:hover:bg-red-600 active:scale-95 transition-all shadow-md shadow-red-500/20"
+        >
           Cancelar o Editar Pedido
         </button>
         <div className="h-5"></div>
