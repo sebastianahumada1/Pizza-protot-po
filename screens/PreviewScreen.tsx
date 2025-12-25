@@ -135,7 +135,7 @@ const PreviewScreen: React.FC = () => {
           
           <button 
             onClick={() => navigate('/summary')}
-            className="w-full py-3 text-red-600 dark:text-red-500 text-sm font-bold hover:text-red-700 dark:hover:text-red-400 transition-colors"
+            className="w-full py-3 px-4 bg-red-600 dark:bg-red-500 text-white text-sm font-bold rounded-2xl hover:bg-red-700 dark:hover:bg-red-600 active:scale-95 transition-all shadow-md shadow-red-500/20"
           >
             Atrás, quiero cambiar algo
           </button>
